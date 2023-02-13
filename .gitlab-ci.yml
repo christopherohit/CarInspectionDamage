@@ -1,0 +1,56 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+stages:
+- build
+- test
+- deploy
+
+build-job-dev:
+  stage: build
+  only:
+  - dev
+  tags:
+  - ai-physical-damage-v4
+  script:
+  - echo "Compiling the code..."
+  - cd /home/ai-dev/builds/9JUtS3Mz/0/dev.ezin/physical-damage-3
+  - docker build --build-arg NODE_ENV=test -t ezin_ai . 
+  - echo "Compile complete."
+
+build-job-prod:
+  stage: build
+  only:
+  - dev
+  tags:
+  - ai-car-ezin
+  script:
+  - echo "Compiling the code..."
+  - cd /home/ai_car/physical-damage-prod
+  - git pull
+  - echo "Compile complete."
+
+deploy-job-dev:
+  stage: deploy
+  only:
+  - dev
+  tags:
+  - ai-physical-damage-v4
+  script:
+  - cd /home/ai-dev/builds/9JUtS3Mz/0/dev.ezin/physical-damage-3
+  - docker-compose up -d
+  - docker ps
+  - echo "Deploy complete."
+
+deploy-job-prod:
+  stage: deploy
+  only:
+  - dev
+  tags:
+  - ai-car-ezin
+  script:
+  - PM2_HOME=/home/ai_car/.pm2 pm2 restart api

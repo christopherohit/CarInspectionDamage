@@ -1,0 +1,6 @@
+/models/*
+/outputDC50/*
+/data/*
+__pycache__ 
+/traincode/*
+/RestructYolo/models/*

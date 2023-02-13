@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+    ezin_ai:
+        container_name: ezin_ai
+        image: ezin_ai:latest
+        ports:
+            - "4000:4000"
+        restart: always
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            APPLICATION_ENV: Develop
+            NODE_ENV: dev
+        networks:
+            net:
+                ipv4_address: 10.22.32.2
+
+networks:
+    net:
+        ipam:
+            driver: default
+            config:
+            - subnet: 10.22.32.0/28
+
+volumes:
+    public:

@@ -1,0 +1,15 @@
+conda create -n Pytorch python==3.7
+conda install -c conda-forge cudatoolkit=11.3 cudnn=8.2.1
+pip install -r requirements.txt
+
+
+
+
+
+
+# create library
+conda list
+conda list -e > requirements.txt
+conda env export > Pytorch.yml
+pip freeze > requirements.txt
+

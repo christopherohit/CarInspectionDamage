@@ -1,0 +1,2 @@
+
+from .evaluator import DensePoseCOCOEvaluator

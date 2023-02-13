@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/tools/deploy",
+    "cmake.configureOnOpen": false
+}
